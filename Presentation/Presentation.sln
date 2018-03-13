@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Presentation", "Presentation\Presentation.pyproj", "{E3DCB34C-71C9-46B0-BA1F-1BFD793BE2D9}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Time_Series_CV", "Time_Series_CV\Time_Series_CV.pyproj", "{C9E58DB9-CAC3-4FAC-BD85-8648DFE477A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E3DCB34C-71C9-46B0-BA1F-1BFD793BE2D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3DCB34C-71C9-46B0-BA1F-1BFD793BE2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9E58DB9-CAC3-4FAC-BD85-8648DFE477A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9E58DB9-CAC3-4FAC-BD85-8648DFE477A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
