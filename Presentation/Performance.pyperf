@@ -1,2 +1,12 @@
 <?xml version="1.0"?>
-<ProfilingTarget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ProfilingTarget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectTarget>
+    <TargetProject>c9e58db9-cac3-4fac-bd85-8648dfe477a8</TargetProject>
+    <FriendlyName>Time_Series_CV</FriendlyName>
+  </ProjectTarget>
+  <Reports>
+    <Report>
+      <Filename>C:\Users\USER\AppData\Local\Temp\Performance_20180315.vsp</Filename>
+    </Report>
+  </Reports>
+</ProfilingTarget>

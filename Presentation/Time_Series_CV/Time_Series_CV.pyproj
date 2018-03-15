@@ -21,16 +21,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="module1.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="test1.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Time_Series\class1.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Time_Series\class2.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Time_Series\Time_Horizon.py">
+    <Compile Include="Time_Series\CrossValidation.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Time_Series\__init__.py">
