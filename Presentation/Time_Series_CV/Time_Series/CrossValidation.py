@@ -37,11 +37,9 @@ class rolling_Horizon(object):
                     self.error2.append(1)
             if i + wsize + 1 == len(data):
                 break
-        try:
-            assert len(data) == wsize + len(error2) + startInd
-            assert len(error2) == len(data) - (startInd + wsize)
-        except:
-            print('confirmation error, different length')
+        assert len(data) == self.wsize + len(self.error2) + self.startInd
+        assert len(self.error2) == len(data) - (self.startInd + self.wsize)
+
 
  
 
@@ -77,7 +75,7 @@ class rolling_cv(object):
 
 class grid_tune_parameter (object):
     from Time_Series.CrossValidation import rolling_cv
-
+    
     def __init__(self, mdl, data, window, paramList , paramName, regress = True, fixed = True):
         tuneSelection = pd.DataFrame(columns = ['param','window','rmse'])
         sse = {}
@@ -115,7 +113,7 @@ class sequential_grid_tune (object):
 
 class paralell_processing (object):
     from Time_Series.CrossValidation import sequential_grid_tune
-
+    from sklearn.externals.joblib import Parallel, delayed
     def __init__(self, mdl, data ,windowList, paramList, paraName,colName ,regress = True, fixed = True):
         errorList = {}
         wisize = {}
@@ -145,8 +143,6 @@ class paralell_processing (object):
         tune_res = tune_res.append({'Window_size': wsize, 'Currency': data.keys(), 'para': para},ignore_index= True)
         el= se
         return {'tune': tune_res, 'el':el, 'prd':prdList}
-
-
 
 
 

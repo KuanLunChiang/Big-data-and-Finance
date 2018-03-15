@@ -87,7 +87,7 @@ class Test_test1(unittest.TestCase):
         paraName = 'alpha'
         paraList = [1,2,3,4,5]
         mdl = Lasso(normalize = True)
-        mp = paralell_processing(mdl,dataDict, winList, paraList, 'alpha',['SEK','CAD'], True)
+        mp = paralell_processing(mdl,dataDict, winList, paraList, 'alpha',['SEK','CAD'])
         for i in mp.wisize:
             self.assertIn(i['Window_size'],winList)
             self.assertIn(i['para'], paraList)
