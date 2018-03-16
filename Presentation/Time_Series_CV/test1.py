@@ -82,17 +82,27 @@ class Test_test1(unittest.TestCase):
         self.assertIn(gp.wsize,winList)
         self.assertIn(gp.para, paraList)
 
-    def test_multi_proccessing (object):
+    def test_multi_proccessing (self):
         winList = [1,2,5,6]
+        colName = ['CAD','SEK']
         paraName = 'alpha'
         paraList = [1,2,3,4,5]
         mdl = Lasso(normalize = True)
-        mp = paralell_processing(mdl,dataDict, winList, paraList, 'alpha',['SEK','CAD'])
-        for i in mp.wisize:
-            self.assertIn(i['Window_size'],winList)
-            self.assertIn(i['para'], paraList)
+        mp = paralell_processing(mdl,dataDict, winList, paraList, 'alpha',colName)
+        for i in colName:
+            self.assertIn(mp.wisize[i]['Window_size'].tolist()[0],winList)
+            self.assertIn(mp.wisize[i]['para'].tolist()[0], paraList)
+            self.assertIn(mp.wisize[i]['Currency'].tolist()[0],colName)
 
-
+    def test_bench_mark (self):
+        bch = benchMark()
+        hs = bch.historical_mean(dataDict['CAD'].change_in_spot,2)
+        self.assertEqual(len(hs), len(bch.error2))
+        self.assertListEqual(hs,bch.error2)
+        cbch = benchMark()
+        se = cbch.classification_benchmark(dataDict['CAD'].change_in_spot)
+        self.assertListEqual(se,cbch.error2)
+        self.assertEqual(len(se),len(cbch.prd))
 
 
 if __name__ == '__main__':

@@ -430,7 +430,7 @@ excel_writer(storepath, ('Window_size'), rf_winSize_currency)
 ########################################## LASSO Classification ####################################################################
 storepath = r'C:\Users\USER\Documents\Imperial College London\Spring Module\Big Data and Finane\Assignment\A2\Presentation\Presentation\Data\lassoc.xlsx'
 
-errorList_lassoc, lassoc_wisize, lassoc_prd = multi_proccess_LASSO(windowList = np.arange(60,85), paramList = np.arange(0.00001,0.0001,0.00001),regress = False)
+errorList_lassoc, lassoc_wisize, lassoc_prd = multi_proccess_LASSO(windowList = np.arange(60,61), paramList = np.arange(0.0001,0.0002,0.0001),regress = False)
 
 SSED_lassoc, lassoc_tuned = multi_proccess_LASSO_report(errorList_lassoc, lassoc_wisize, isClassif = True)
 plot_differential_report(colName = fxspot.drop("Date", axis = 1).columns.tolist(), data = SSED_lassoc, para = 'SSEDif', row = 3, col = 3, supT = 'LASSO Classification SSE Differential')

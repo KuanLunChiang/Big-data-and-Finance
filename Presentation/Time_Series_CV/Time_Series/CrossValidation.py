@@ -118,7 +118,7 @@ class paralell_processing (object):
         errorList = {}
         wisize = {}
         prdList= {}
-        report = Parallel(n_jobs = -1, verbose = 50, backend = 'threading')(delayed(self.paralell_support)(mdl,data[i],regress,windowList,paramList, paraName, fixed) for i in colName)
+        report = Parallel(n_jobs = -4, verbose = 50, backend = 'threading')(delayed(self.paralell_support)(i,mdl,data,regress,windowList,paramList, paraName, fixed) for i in colName)
         for i in colName:
             errorList[i] = report[colName.index(i)]['el']
             wisize[i] =report[colName.index(i)]['tune']
@@ -129,22 +129,55 @@ class paralell_processing (object):
 
 
         
-    def paralell_support (self,mdl, data , regress , windowList, paramList, paraName, fixed):
+    def paralell_support (self,name ,mdl, data , regress , windowList, paramList, paraName, fixed):
         
         tune_res = pd.DataFrame()
         el = []
         mdl = mdl
-        sq = sequential_grid_tune(data,mdl, window = windowList, paramList = paramList, paramName = paraName, startPara = 0, regress = regress, fixed = fixed)
+        sq = sequential_grid_tune(data[name],mdl, window = windowList, paramList = paramList, paramName = paraName, startPara = 0, regress = regress, fixed = fixed)
         se = sq.error2
         tuned = sq.tuned
         para = sq.para
         wsize = sq.wsize
         prdList = sq.prdList
-        tune_res = tune_res.append({'Window_size': wsize, 'Currency': data.keys(), 'para': para},ignore_index= True)
+        tune_res = tune_res.append({'Window_size': wsize, 'Currency': name, 'para': para},ignore_index= True)
         el= se
         return {'tune': tune_res, 'el':el, 'prd':prdList}
 
 
 
 
+
+class benchMark (object):
+    def __init__(self):
+        self.error2 = []
+        self.prd = []
+
+    def historical_mean (self,data, wsize):
+        prd = data.rolling(wsize).mean().dropna()
+        prd.drop(prd.tail(1).index, inplace = True)
+        prd.index = prd.index+1
+        testy = data[wsize:,]
+        error = prd.subtract(testy)
+        se = error.apply(lambda x: pow(x,2)).tolist()
+        try:
+            assert len(prd) == len(testy)
+        except:
+            print('different length')
+        self.error2 = se
+        self.prd = prd
+        return se
+
+    def classification_benchmark (self,data):
+        upper = data.quantile(0.66)
+        lower = data.quantile(0.33)
+        datay = data.copy()
+        res = data.shift(1).dropna().apply(lambda x: 1 if x < lower else (3 if x > upper else 2))
+        datay = datay.apply(lambda x: 1 if x < lower else (3 if x > upper else 2))
+        datay = datay[1:]
+        se = datay.subtract(res).apply(lambda x: 0 if x == 0 else 1)
+        se = list(se)
+        self.error2 = se
+        self.prd = res
+        return se
 
