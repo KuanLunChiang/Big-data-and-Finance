@@ -21,37 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Split work\LassoClassification.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Split work\LassoReg.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repos\paraRepos.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Presentation.py" />
-    <Compile Include="Repos\Presentation2.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Split work\randomForest.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Split work\randomForestClassification.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Split work\rolling_regression.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Split work\SCMClassification.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Split work\SVM.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repos\test1.py">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\CPI.csv" />
@@ -67,8 +37,6 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Data\Result\" />
-    <Folder Include="Repos\" />
-    <Folder Include="Split work\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

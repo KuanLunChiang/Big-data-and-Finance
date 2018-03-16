@@ -27,6 +27,9 @@
     <Compile Include="Time_Series\CrossValidation.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Time_Series\Report.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Time_Series\__init__.py">
       <SubType>Code</SubType>
     </Compile>
