@@ -55,6 +55,7 @@ class Test_test1(unittest.TestCase):
         rh  = rolling_Horizon(mdl = mdl, data = data)
         self.assertEqual(len(data),rh.wsize + len(rh.error2) + rh.startInd)
 
+
     def test_rolling_crossvalidation(self):
         winList = [1,2,5,6]
         mdl = LinearRegression()
@@ -88,7 +89,8 @@ class Test_test1(unittest.TestCase):
         paraName = 'alpha'
         paraList = [1,2,3,4,5]
         mdl = Lasso(normalize = True)
-        mp = paralell_processing(mdl,dataDict, winList, paraList, 'alpha',colName)
+        mp = paralell_processing(mdl,dataDict, winList, paraList, 'alpha',colName,True,True,False)
+        print(mp.report_tuned)
         for i in colName:
             self.assertIn(mp.wisize[i]['Window_size'].tolist()[0],winList)
             self.assertIn(mp.wisize[i]['para'].tolist()[0], paraList)
@@ -105,5 +107,12 @@ class Test_test1(unittest.TestCase):
         self.assertEqual(len(se),len(cbch.prd))
 
 
+
+
+
 if __name__ == '__main__':
     unittest.main()
+
+
+
+
