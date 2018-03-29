@@ -152,9 +152,6 @@ class paralell_processing (object):
         return {'tune': tune_res, 'el':el, 'prd':prdList}
 
 
-
-
-
 class benchMark (object):
     def __init__(self):
         self.error2 = []

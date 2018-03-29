@@ -241,7 +241,7 @@ def multi_proccess_LASSO(windowList, paramList, regress = True, fiexed = True):
     prdList= {}
     colName = fxspot.drop('Date',axis =1).columns.tolist()
     col = fxspot.drop("Date", axis = 1).columns.tolist()
-    lasso_report = Parallel(n_jobs = -4, verbose = 50, backend = 'threading')(delayed(parallel_LASSO)(i,regress,windowList,paramList, fiexed) for i in col)
+    lasso_report = Parallel(n_jobs = -8, verbose = 50, backend = 'threading')(delayed(parallel_LASSO)(i,regress,windowList,paramList, fiexed) for i in col)
     for i in colName:
         errorList_lasso[i] = lasso_report[colName.index(i)]['el']
         lasso_wisize[i] =lasso_report[colName.index(i)]['lasso']

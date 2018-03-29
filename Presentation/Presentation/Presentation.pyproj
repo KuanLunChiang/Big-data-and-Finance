@@ -38,6 +38,13 @@
     <Folder Include="Data\" />
     <Folder Include="Data\Result\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Time_Series_CV\Time_Series_CV.pyproj">
+      <Name>Time_Series_CV</Name>
+      <Project>{c9e58db9-cac3-4fac-bd85-8648dfe477a8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
        Visual Studio and specify your pre- and post-build commands in
