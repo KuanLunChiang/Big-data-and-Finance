@@ -20,13 +20,13 @@ class rolling_Horizon(object):
             rlg = mdl
             if fixed:
                 trainx = data[i:i + wsize].drop(responseVar, axis = 1)
-                trainy = data[i:i + wsize].change_in_spot
+                trainy = data[i:i + wsize][responseVar]
             else:
                 trainx = data[startInd:i + wsize].drop(responseVar, axis = 1)
-                trainy = data[startInd:i + wsize].change_in_spot
+                trainy = data[startInd:i + wsize][responseVar]
             rlg.fit(trainx,trainy)
             testx = data[i + wsize:i + wsize + 1].drop(responseVar, axis = 1).copy()
-            testy = data[i + wsize:i + wsize + 1].change_in_spot.values.copy()
+            testy = data[i + wsize:i + wsize + 1][responseVar].values.copy()
             prd = rlg.predict(testx)
         
             if regress:
