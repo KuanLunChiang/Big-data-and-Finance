@@ -1,7 +1,7 @@
 from Time_Series import CrossValidation as tcv
 from Time_Series import Report as trpt
 import pandas as pd
-
+import numpy as np
 
 ####################### create variables ################################################## 
 
@@ -44,14 +44,14 @@ for i in fxspot.columns.tolist():
         _moneyrtl[i] = _dataDict[i][['change_in_spot','moneyrtl']].copy()
         _dataDict[i] = _dataDict[i].drop('ppp',axis = 1).drop('moneyrtl', axis = 1)
 
-
+_responseVar = 'change_in_spot' 
 ###################### LASSO ####################################
 from sklearn.linear_model import Lasso
 
 mdl = Lasso(normalize = True)
 widnowList = [1,2,3,4,5]
 parameter = [1,2,3,4,5]
-tuned_mdl = tcv.paralell_processing(mdl,_dataDict, widnowList, parameter,'alpha',_colName)
+tuned_mdl = tcv.paralell_processing(mdl,_dataDict, _responseVar, widnowList, parameter,'alpha',_colName)
 bench_mdl = {}
 for i in _colName:
     bch = tcv.benchMark()
@@ -72,3 +72,54 @@ widnowList = [1]
 parameter = [1]
 tuned_mdl = tcv.paralell_processing(mdl,_dataDict, widnowList, [2,3,4],'max_features',_colName,True,True,False,-4,50)
 
+bench_mdl = {}
+for i in _colName:
+    bch = tcv.benchMark()
+    bench_mdl[i] = bch.historical_mean(data = _dataDict[i].change_in_spot, wsize = int(tuned_mdl.wisize[i].Window_size))
+
+sse_report = {}
+for i in _colName:
+    sse_report[i] = trpt.cum_sse_report(tuned_mdl.errorList[i], bench_mdl[i]).reportDF
+
+trpt.plot_differential_report(_colName,sse_report,'SSEDif',3,3,"SSE Report")
+trpt.plot_differential_report(_colName,sse_report,'oosrsquare',3,3,"OOSR Report")
+
+########################## SVM ###########################################
+from sklearn.svm import SVR
+mdl = SVR(cache_size = 1000)
+widnowList = np.arange(1,20)
+parameter = np.arange(1,50)
+tuned_mdl = tcv.paralell_processing(mdl,_dataDict, widnowList, [2,3,4],'max_features',_colName,True,True,False,-4,50)
+
+bench_mdl = {}
+for i in _colName:
+    bch = tcv.benchMark()
+    bench_mdl[i] = bch.historical_mean(data = _dataDict[i].change_in_spot, wsize = int(tuned_mdl.wisize[i].Window_size))
+
+sse_report = {}
+for i in _colName:
+    sse_report[i] = trpt.cum_sse_report(tuned_mdl.errorList[i], bench_mdl[i]).reportDF
+
+trpt.plot_differential_report(_colName,sse_report,'SSEDif',3,3,"SSE Report")
+trpt.plot_differential_report(_colName,sse_report,'oosrsquare',3,3,"OOSR Report")
+
+
+
+########################## SVM Classification #######################################
+from sklearn.svm import SVR
+mdl = SVR(cache_size = 5000)
+widnowList = np.arange(1,20)
+parameter = np.arange(1,50)
+tuned_mdl = tcv.paralell_processing(mdl,_dataDict, widnowList, [2,3,4],'max_features',_colName,False,True,False,-4,50)
+
+bench_mdl = {}
+for i in _colName:
+    bch = tcv.benchMark()
+    bench_mdl[i] = bch.historical_mean(data = _dataDict[i].change_in_spot, wsize = int(tuned_mdl.wisize[i].Window_size))
+
+sse_report = {}
+for i in _colName:
+    sse_report[i] = trpt.cum_sse_report(tuned_mdl.errorList[i], bench_mdl[i]).reportDF
+
+trpt.plot_differential_report(_colName,sse_report,'SSEDif',3,3,"SSE Report")
+trpt.plot_differential_report(_colName,sse_report,'oosrsquare',3,3,"OOSR Report")
